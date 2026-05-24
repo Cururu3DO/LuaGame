@@ -1,8 +1,8 @@
 require("game")
 
-window("Teste", 800, 600)
+window("game", 800, 600)
 
-image("pl.png")
+image("player.png")
 
 x = 100
 
@@ -19,5 +19,5 @@ while running() do
 
     draw(x, 100, 128, 128)
 
-    text("Lua Engine", 20, 20)
+    text("LuaGame", 20, 20)
 end
