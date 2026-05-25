@@ -18,7 +18,11 @@ static int l_window(lua_State *L) {
     int width = luaL_checkinteger(L, 2);
     int height = luaL_checkinteger(L, 3);
 
-    SDL_Init(SDL_INIT_VIDEO);
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        printf("SDL Error: %s\n", SDL_GetError());
+        return 0;
+    }
+
     IMG_Init(IMG_INIT_PNG);
     TTF_Init();
 
@@ -31,11 +35,20 @@ static int l_window(lua_State *L) {
         SDL_WINDOW_SHOWN
     );
 
+    if (!window) {
+        printf("Window Error: %s\n", SDL_GetError());
+        return 0;
+    }
+
     renderer = SDL_CreateRenderer(
-        window,
-        -1,
-        SDL_RENDERER_ACCELERATED
-    );
+    window,
+    -1,
+    SDL_RENDERER_SOFTWARE
+);
+    if (!renderer) {
+        printf("Renderer Error: %s\n", SDL_GetError());
+        return 0;
+    }
 
     return 0;
 }
